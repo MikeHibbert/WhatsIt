@@ -85,6 +85,82 @@ The extension follows a modular architecture with the following components:
     └── dom-utils.js      # DOM manipulation utilities
 ```
 
+## Testing
+
+The WhatsIt extension implements a comprehensive testing strategy to ensure reliability and functionality:
+
+### Unit Testing
+
+Unit tests are implemented using Jest and focus on testing individual components in isolation:
+
+```bash
+# Run all tests
+npm test
+
+# Run tests in watch mode during development
+npm run test:watch
+
+# Generate test coverage report
+npm run test:coverage
+```
+
+#### Background Script Tests
+
+Tests for the background script focus on:
+- API function implementations (summarizeContent, rewriteText, analyzeImage)
+- Message handling for different actions
+- Helper functions for text processing
+
+#### Content Script Tests
+
+Tests for the content script focus on:
+- DOM manipulation functions
+- Text extraction and highlighting
+- Sidebar functionality
+- Event handling
+
+### Integration Testing
+
+Integration tests verify the communication between different components:
+- Message passing between popup and content script
+- Message passing between content script and background script
+- Event handling across components
+
+### End-to-End Testing
+
+End-to-end tests use Puppeteer to simulate real user interactions with the extension in Chrome:
+- Extension loading and initialization
+- Sidebar toggling via button and keyboard shortcut
+- Content summarization and display
+- Highlight functionality
+- Refresh functionality
+
+**Note:** E2E tests require special configuration to run properly:
+```bash
+# Run E2E tests separately with extended timeout
+npm test -- tests/e2e.test.js --timeout=60000
+
+# For development environments, you may need to configure Puppeteer
+# to use a specific Chrome installation with the extension loaded
+```
+
+### Manual Testing
+
+A comprehensive manual testing checklist is provided in `tests/manual_testing_checklist.md` to verify:
+- Installation and setup
+- Basic functionality
+- Content analysis
+- Sidebar functionality
+- Highlight interaction
+- Image analysis
+- Text rewriting
+- Performance
+- Cross-browser compatibility
+- Accessibility
+- Error handling
+- Edge cases
+- Security and privacy
+
 ## Future Enhancements
 
 - **Custom Analysis Options**: Allow users to customize analysis parameters
