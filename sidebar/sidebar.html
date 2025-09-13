@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WhatsIt Sidebar</title>
+  <link rel="stylesheet" href="sidebar.css">
+</head>
+<body>
+  <div class="sidebar-container">
+    <header class="sidebar-header">
+      <div class="logo">
+        <img src="../assets/icon48.svg" alt="WhatsIt Logo" class="logo-img">
+        <h1>WhatsIt</h1>
+      </div>
+      <button id="close-sidebar" class="icon-button" aria-label="Close sidebar">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12.5 3.5L3.5 12.5M3.5 3.5L12.5 12.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+    </header>
+
+    <div class="tabs">
+      <button id="tab-summary" class="tab-button active" data-tab="summary-panel">Summary</button>
+      <button id="tab-rewrite" class="tab-button" data-tab="rewrite-panel">Rewrite</button>
+      <button id="tab-image" class="tab-button" data-tab="image-panel">Image Analysis</button>
+    </div>
+
+    <div class="tab-content">
+      <!-- Summary Panel -->
+      <div id="summary-panel" class="panel active">
+        <div class="panel-header">
+          <h2>Page Summary</h2>
+          <button id="refresh-summary" class="icon-button" aria-label="Refresh summary">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M13.5 2.5V6.5H9.5M2.5 13.5V9.5H6.5M14 8C14 11.3137 11.3137 14 8 14C4.68629 14 2 11.3137 2 8C2 4.68629 4.68629 2 8 2C11.3137 2 14 4.68629 14 8Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+        </div>
+        <div class="loading-container" id="summary-loading">
+          <div class="spinner"></div>
+          <p>Generating summary...</p>
+        </div>
+        <div class="content-container" id="summary-content">
+          <div class="summary-text"></div>
+          <h3>Key Points</h3>
+          <ul class="key-points-list"></ul>
+        </div>
+        <div class="error-container" id="summary-error">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 8V12M12 16H12.01M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <p>Unable to generate summary. Please try again.</p>
+        </div>
+      </div>
+
+      <!-- Rewrite Panel -->
+      <div id="rewrite-panel" class="panel">
+        <div class="panel-header">
+          <h2>Rewrite Text</h2>
+        </div>
+        <div class="rewrite-controls">
+          <div class="form-group">
+            <label for="rewrite-tone">Tone:</label>
+            <select id="rewrite-tone" class="select-input">
+              <option value="casual">Casual</option>
+              <option value="formal">Formal</option>
+              <option value="friendly">Friendly</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="checkbox-label">
+              <input type="checkbox" id="simplify-text">
+              <span>Simplify language</span>
+            </label>
+          </div>
+        </div>
+        <div class="text-input-container">
+          <label for="text-to-rewrite">Text to rewrite:</label>
+          <textarea id="text-to-rewrite" placeholder="Paste or type text to rewrite..."></textarea>
+        </div>
+        <button id="rewrite-button" class="primary-button">Rewrite Text</button>
+        <div class="loading-container" id="rewrite-loading">
+          <div class="spinner"></div>
+          <p>Rewriting text...</p>
+        </div>
+        <div class="content-container" id="rewrite-result">
+          <h3>Rewritten Text:</h3>
+          <div class="rewritten-text"></div>
+          <button id="copy-rewritten" class="secondary-button">Copy to Clipboard</button>
+        </div>
+        <div class="error-container" id="rewrite-error">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 8V12M12 16H12.01M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <p>Unable to rewrite text. Please try again.</p>
+        </div>
+      </div>
+
+      <!-- Image Analysis Panel -->
+      <div id="image-panel" class="panel">
+        <div class="panel-header">
+          <h2>Image Analysis</h2>
+        </div>
+        <div class="image-upload-container">
+          <p>Select an image from the page or upload one:</p>
+          <div class="page-images-container">
+            <h3>Images on this page:</h3>
+            <div class="page-images-grid" id="page-images"></div>
+          </div>
+          <div class="upload-container">
+            <label for="image-upload" class="upload-label">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M4 16L8.58579 11.4142C9.36684 10.6332 10.6332 10.6332 11.4142 11.4142L16 16M14 14L15.5858 12.4142C16.3668 11.6332 17.6332 11.6332 18.4142 12.4142L20 14M14 8H14.01M6 20H18C19.1046 20 20 19.1046 20 18V6C20 4.89543 19.1046 4 18 4H6C4.89543 4 4 4.89543 4 6V18C4 19.1046 4.89543 20 6 20Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              <span>Upload Image</span>
+            </label>
+            <input type="file" id="image-upload" accept="image/*" class="file-input">
+          </div>
+        </div>
+        <div class="selected-image-container" id="selected-image-container">
+          <h3>Selected Image:</h3>
+          <div class="selected-image-wrapper">
+            <img id="selected-image" src="" alt="Selected image">
+          </div>
+          <button id="analyze-image-button" class="primary-button">Analyze Image</button>
+        </div>
+        <div class="loading-container" id="image-loading">
+          <div class="spinner"></div>
+          <p>Analyzing image...</p>
+        </div>
+        <div class="content-container" id="image-analysis-result">
+          <h3>Analysis Results:</h3>
+          <div class="image-description"></div>
+          <div class="image-tags"></div>
+        </div>
+        <div class="error-container" id="image-error">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 8V12M12 16H12.01M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <p>Unable to analyze image. Please try again.</p>
+        </div>
+      </div>
+    </div>
+
+    <footer class="sidebar-footer">
+      <p>WhatsIt - Powered by Chrome's Built-in AI</p>
+    </footer>
+  </div>
+
+  <script src="sidebar.js"></script>
+</body>
+</html>

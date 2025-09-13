@@ -1,0 +1,36 @@
+{
+  "name": "whatsit-chrome-extension",
+  "version": "1.0.0",
+  "description": "A Chrome extension that leverages Chrome's Built-in AI APIs to analyze web content and provide useful insights",
+  "main": "background.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "echo \"No build step required for Chrome extension\" && exit 0",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yourusername/whatsit-chrome-extension.git"
+  },
+  "keywords": [
+    "chrome-extension",
+    "ai",
+    "content-analysis",
+    "text-summarization",
+    "image-analysis"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/yourusername/whatsit-chrome-extension/issues"
+  },
+  "homepage": "https://github.com/yourusername/whatsit-chrome-extension#readme",
+  "devDependencies": {
+    "eslint": "^8.38.0",
+    "eslint-config-standard": "^17.0.0",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-n": "^15.7.0",
+    "eslint-plugin-promise": "^6.1.1"
+  }
+}
